@@ -1,4 +1,6 @@
 import entity.Employes;
+import entity.Entreprise;
+import entity.Filliale;
 import entity.Secteur;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,29 +9,34 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
-import java.util.List;
-
 public class fixtures {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         SessionFactory sessionFactory;
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        Session session =sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
 
-            String[] clearTables = {"Employes", "Secteur"};
-            for (String table: clearTables) {
-                session.beginTransaction();
-                String stringQuery = "DELETE FROM " + table;
-                Query query = session.createQuery(stringQuery);
-                query.executeUpdate();
-                session.getTransaction().commit();
-            }
+        String[] clearTables = {"Employes", "Secteur"};
+        for (String table : clearTables) {
+            session.beginTransaction();
+            String stringQuery = "DELETE FROM " + table;
+            Query query = session.createQuery(stringQuery);
+            query.executeUpdate();
+            session.getTransaction().commit();
+        }
 
+        // create entreprise
+        session.beginTransaction();
+        Entreprise iros = new Entreprise();
+        iros.setNom("Iros");
 
-        //Create joke
+        session.save(iros);
+        session.getTransaction().commit();
+
+        //Create Secteur joke
         session.beginTransaction();
         Secteur joke = new Secteur();
         joke.setNom("geo");
@@ -37,7 +44,7 @@ public class fixtures {
         session.save(joke);
         session.getTransaction().commit();
 
-        //Create user 1
+        //Create employes  1
         session.beginTransaction();
         Employes wil = new Employes();
         wil.setNom("greg");
@@ -49,6 +56,22 @@ public class fixtures {
         wil.setAdresse_postal("15 rue de la gare");
         wil.setSecteur(joke);
         session.save(wil);
+        session.getTransaction().commit();
+
+
+        // create fiffiale
+        session.beginTransaction();
+        Filliale admin = new Filliale();
+        admin.setNom("wil");
+        admin.setNbre_employe(150);
+
+        admin.addSecteur(joke);
+        joke.addFilliale(admin);
+
+        admin.setEntreprise(iros);
+
+        session.save(admin);
+        session.save(joke);
         session.getTransaction().commit();
 
 

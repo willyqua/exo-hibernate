@@ -10,9 +10,14 @@ public class Filliale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String nom;
     private int nbre_employe;
+
+    @ManyToOne
+    @JoinColumn(name = "entreprise_id")
+    private Entreprise entreprise;
+
     @ManyToMany(mappedBy = "filliales")
     private Set<Secteur> secteurs = new HashSet<Secteur>();
 
@@ -20,11 +25,11 @@ public class Filliale {
         this.secteurs.add(secteur);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -42,6 +47,14 @@ public class Filliale {
 
     public void setNbre_employe(int nbre_employe) {
         this.nbre_employe = nbre_employe;
+    }
+
+    public Entreprise getEntreprise() {
+        return entreprise;
+    }
+
+    public void setEntreprise(Entreprise entreprise) {
+        this.entreprise = entreprise;
     }
 
     public Set<Secteur> getSecteurs() {

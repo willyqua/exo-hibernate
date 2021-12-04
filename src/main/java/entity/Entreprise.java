@@ -2,33 +2,41 @@ package entity;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="entreprise")
 public class Entreprise {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long entrepriseId;
-    private String name;
+    private long id;
+    private String nom;
 
-    public Entreprise(long entrepriseId, String name) {
-        this.entrepriseId = entrepriseId;
-        this.name = name;
+    @OneToMany(mappedBy = "entreprise", cascade =  CascadeType.ALL)
+    private Set<Filliale> filliale;
+
+    public Set<Filliale> getFilliale() {
+        return filliale;
     }
 
-    public long getEntrepriseId() {
-        return entrepriseId;
+    public void setFilliale(Set<Filliale> filliale) {
+        this.filliale = filliale;
     }
 
-    public void setEntrepriseId(long entrepriseId) {
-        this.entrepriseId = entrepriseId;
+    public long getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 }
