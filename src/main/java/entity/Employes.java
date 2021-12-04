@@ -17,17 +17,18 @@ public class Employes {
     private String telephone;
     private String adresse_postal;
 
-    public Employes(){}
 
-    public Employes(long id, String nom, String prenom, String email, int age, String fonction, String telephone, String adresse_postal) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.age = age;
-        this.fonction = fonction;
-        this.telephone = telephone;
-        this.adresse_postal = adresse_postal;
+    @ManyToOne
+    @JoinColumn(name="secteur_id")
+    private Secteur secteur ;
+
+
+    public Secteur getSecteur() {
+        return secteur;
+    }
+
+    public void setSecteur(Secteur secteur) {
+        this.secteur = secteur;
     }
 
     public long getId() {

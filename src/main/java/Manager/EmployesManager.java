@@ -1,6 +1,7 @@
 package Manager;
 
 import entity.Employes;
+import entity.Secteur;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -36,8 +37,14 @@ public class EmployesManager {
         wil.setTelephone("06 30 30 30 30");
         wil.setAdresse_postal("15 rue de la gare");
 
+        Secteur joke = new Secteur();
+        joke.setNom("geo");
+        //joke.getNom();
+        joke.setLocalisation("Paris");
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        session.save(joke);
         session.save(wil);
         session.getTransaction().commit();
         session.close();
@@ -104,15 +111,15 @@ public class EmployesManager {
     public static void main(String[] args) {
         EmployesManager manager = new EmployesManager();
         manager.setup();
-        //manager.create();
-        manager.read(3);
+        manager.create();
+        manager.read(1);
 
         /*Employes employes = new Employes();
         employes.setTelephone("06 20 20 20 20");
         long id = 3;
         manager.update(id, employes);*/
-        Employes employes = manager.read(5);
-        manager.delete(employes);
+        //Employes employes = manager.read(5);
+        //manager.delete(employes);
         manager.exit();
 
 
