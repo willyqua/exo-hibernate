@@ -1,3 +1,4 @@
+import Manager.EmployesManager;
 import entity.Employes;
 import entity.Entreprise;
 import entity.Filliale;
@@ -66,18 +67,49 @@ public class fixtures {
 
         //Create employes  1
         session.beginTransaction();
-        Employes wil = new Employes();
-        wil.setNom("wil");
-        wil.setPrenom("juste ");
-        wil.setEmail("wil@gmail.com");
-        wil.setAge(27);
-        wil.setFonction("dev");
-        wil.setTelephone("06 30 30 30 30");
-        wil.setAdresse_postal("15 rue de la gare");
-        wil.setSecteur(secteur2);
-        session.save(wil);
+        Employes employe = new Employes();
+        employe.setNom("wil");
+        employe.setPrenom("juste ");
+        employe.setEmail("wil@gmail.com");
+        employe.setAge(27);
+        employe.setFonction("dev");
+        employe.setTelephone("06 30 30 30 30");
+        employe.setAdresse_postal("15 rue de la gare");
+        employe.setSecteur(secteur2);
+        session.save(employe);
         session.getTransaction().commit();
 
+        //Create employes  1
+        session.beginTransaction();
+        Employes employe1 = new Employes();
+        employe1.setNom("wil");
+        employe1.setPrenom("juste ");
+        employe1.setEmail("wil@gmail.com");
+        employe1.setAge(27);
+        employe1.setFonction("dev");
+        employe1.setTelephone("06 30 30 30 30");
+        employe1.setAdresse_postal("15 rue de la gare");
+        employe1.setSecteur(secteur2);
+        session.save(employe1);
+        session.getTransaction().commit();
+
+        //Create employes  1
+        session.beginTransaction();
+        Employes employe2 = new Employes();
+        employe2.setNom("wil");
+        employe2.setPrenom("juste ");
+        employe2.setEmail("wil@gmail.com");
+        employe2.setAge(27);
+        employe2.setFonction("dev");
+        employe2.setTelephone("06 30 30 30 30");
+        employe2.setAdresse_postal("15 rue de la gare");
+        employe2.setSecteur(secteur2);
+        session.save(employe2);
+        session.getTransaction().commit();
+
+        EmployesManager manager = new EmployesManager();
+        manager.setup();
+        System.out.println("employes count " +manager.count());
 
         // create fiffiale
         session.beginTransaction();
@@ -89,20 +121,24 @@ public class fixtures {
         filliale2.setNom("filliale2");
         filliale2.setNbre_employe(100);
 
+        Filliale filliale3 = new Filliale();
+        filliale3.setNom("filliale3");
+        filliale3.setNbre_employe(75);
+
+        Filliale filliale4 = new Filliale();
+        filliale4.setNom("filliale4");
+        filliale4.setNbre_employe(300);
+
         filliale1.addSecteur(secteur2);
         secteur2.addFilliale(filliale1);
         filliale2.addSecteur(secteur2);
         secteur2.addFilliale(filliale2);
 
-        filliale1.addSecteur(secteur1);
-        secteur1.addFilliale(filliale1);
-        filliale2.addSecteur(secteur1);
-        secteur1.addFilliale(filliale2);
+
 
         filliale1.setEntreprise(nordBoucherie);
-        filliale2.setEntreprise(nordBoucherie);
-        filliale1.setEntreprise(Total);
         filliale2.setEntreprise(Total);
+
 
         session.save(filliale1);
         session.save(filliale2);

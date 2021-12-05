@@ -7,11 +7,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 public class EmployesManager {
     protected SessionFactory sessionFactory;
 
-    private void setup() {
+    public void setup() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 
         try {
@@ -65,7 +66,11 @@ public class EmployesManager {
         return employes;
     }
 
-
+    public Long count() {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("select count(*) from Employes");
+        return (Long)query.uniqueResult();
+    }
 
     protected void update(long id, Employes newEmployes) {
         // Je mets à jour un enregistrement
